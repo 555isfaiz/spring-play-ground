@@ -1,0 +1,27 @@
+services:
+  morgan:
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_started
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/morgan_db
+      - SPRING_DATASOURCE_USERNAME=morgan
+      - SPRING_DATASOURCE_PASSWORD=morgan#123
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  postgres:
+    image: postgres:15
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=morgan#123
+      - POSTGRES_USER=morgan
+      - POSTGRES_DB=morgan_db
