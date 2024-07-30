@@ -1,7 +1,7 @@
 package morgan;
 
 import java.util.List;
-
+import java.util.Optional;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -35,8 +35,16 @@ public class MyService {
         dataRepo.save(newRecord);
     }
 
+    public Optional<MyData> getHistoryById(long id) {
+        return dataRepo.findById(id);
+    }
+
     public List<MyData> getAllHistory() {
         return dataRepo.findAll();
+    }
+
+    public void deleteHistoryById(long id) {
+        dataRepo.deleteById(id);
     }
 
     @EventListener(ApplicationReadyEvent.class)
