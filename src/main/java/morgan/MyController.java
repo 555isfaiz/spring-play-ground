@@ -1,6 +1,8 @@
 package morgan;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +17,6 @@ record ServiceSetRequest(String from, String newVal) {
 @RequestMapping("/service")
 public class MyController {
 
-
     @Autowired
     MyService service;
 
@@ -29,4 +30,14 @@ public class MyController {
         service.setNewValue(request.newVal(), request.from());
         return "request from " + request.from() + " succeeded";
     }
+
+    @GetMapping("/history")
+    List<MyData> getAllHistory() {
+        return service.getAllHistory();
+    }
+
+    // @DeleteMapping("/history")
+    // String deleteHistory() {
+    //
+    // }
 }

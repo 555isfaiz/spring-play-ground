@@ -1,5 +1,7 @@
 package morgan;
 
+import java.util.List;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -15,9 +17,13 @@ public class MyService {
     @Autowired
     MyDataRepo dataRepo;
 
+    @Autowired
+    ValueProcessor valueProcessor;
+
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(MyService.class);
 
     public void setNewValue(String newVal, String modifier) {
+        newVal = valueProcessor.process(newVal);
         this.serviceVal = newVal;
         this.lastModifier = modifier;
         logger.info("just set a new value: " + this.serviceVal);
@@ -27,6 +33,10 @@ public class MyService {
         newRecord.setModifier(modifier);
         newRecord.setTimestamp(System.currentTimeMillis());
         dataRepo.save(newRecord);
+    }
+
+    public List<MyData> getAllHistory() {
+        return dataRepo.findAll();
     }
 
     @EventListener(ApplicationReadyEvent.class)
