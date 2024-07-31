@@ -7,11 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
+import lombok.Getter;
 
 @Service
 public class MyService {
-    String serviceKey = "my-service";
-    String serviceVal = "f1@g";
+
+    @Getter
+    private String serviceKey = "my-service";
+
+    @Getter
+    private String serviceVal = "f1@g";
     String lastModifier = "";
 
     @Autowired

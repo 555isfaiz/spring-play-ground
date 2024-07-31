@@ -25,7 +25,7 @@ public class MyController {
 
     @GetMapping
     String get() {
-        return "key and val: " + service.serviceKey + " " + service.serviceVal;
+        return "key and val: " + service.getServiceKey() + " " + service.getServiceVal();
     }
 
     @PostMapping
@@ -41,11 +41,12 @@ public class MyController {
 
     @DeleteMapping("/history/{id}")
     ResponseEntity<String> deleteHistory(@PathVariable("id") long id) {
+
         if (!service.getHistoryById(id).isPresent()) {
-            return new ResponseEntity<>("Not Found", HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
 
         service.deleteHistoryById(id);
-        return new ResponseEntity<>("success", HttpStatus.OK);
+        return ResponseEntity.ok().body("success");
     }
 }
