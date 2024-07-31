@@ -37,8 +37,8 @@ public class AppTest {
     @MockBean
     MyService myService;
 
-    @MockBean
-    private MyDataRepo myDataRepo;
+    // @MockBean
+    // private MyDataRepo myDataRepo;
 
     @BeforeEach
     public void setup() {

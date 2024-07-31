@@ -30,7 +30,8 @@ public class App {
     @RequestMapping("/status")
     String status() {
         return "config.hello: " + config.hello() + ", config.world: " + config.world()
-                + ", service.key: " + service.serviceKey + ", serviceVal: " + service.serviceVal
+                + ", service.key: " + service.getServiceKey() + ", serviceVal: "
+                + service.getServiceVal()
                 + ".";
     }
 
